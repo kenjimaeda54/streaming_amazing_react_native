@@ -2,7 +2,8 @@ export default {
   colors: {
     black100: "#09090A",
     red: "#DC1637",
-    white: "#FFFFFF"
+    white: "#FFFFFF",
+    white100: '#F4F5FA'
   },
   fonts: {
     latoBlack: 'Lato-Black',
