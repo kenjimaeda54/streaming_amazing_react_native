@@ -1,4 +1,4 @@
-import { NavigationModel } from "@/models/navigation_model"
+import { NavigationModel } from "@/models/NavigationModel"
 import HomeScreen from "@/screens/home/HomeScreen"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import TabBar from "./component/TabBar"

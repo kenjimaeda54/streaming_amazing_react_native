@@ -1,4 +1,4 @@
-import { NavigationModel } from "@/models/navigation_model"
+import { NavigationModel } from "@/models/NavigationModel"
 
 
 declare global {

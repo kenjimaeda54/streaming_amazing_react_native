@@ -11,7 +11,7 @@ module.exports = {
           '@/screens': './src/screens',
           '@/declaration': './src/declaration',
           '@/global': './src/global',
-          '@/utils': './src/utils',
+          '@/utility': './src/utility',
           '@/theme': './src/theme',
           '@/models': './src/models',
           '@/mock': './src/mock',
