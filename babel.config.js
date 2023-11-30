@@ -14,7 +14,7 @@ module.exports = {
           '@/utility': './src/utility',
           '@/theme': './src/theme',
           '@/models': './src/models',
-          '@/mock': './src/mock',
+          '@/mocks': './src/mocks',
           '@/view_models': './src/view_models',
           '@/services': './src/services',
           '@/test': './src/test',

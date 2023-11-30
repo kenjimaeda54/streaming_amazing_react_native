@@ -18,7 +18,7 @@ export default function TabBar({ ...props }: BottomTabBarProps) {
 
 
   return (
-    <View style={[styles.container, { marginBottom: bottom + 60 }]} >
+    <View style={styles.container} >
       {props.state.routes.map((route, index) => {
         const { options } = props.descriptors[route.key]
 

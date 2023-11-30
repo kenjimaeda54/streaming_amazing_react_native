@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 10,
+    paddingHorizontal: 13,
   },
   presentationWelcome: {
     fontFamily: theme.fonts.latoLight,
@@ -27,6 +28,7 @@ export const styles = StyleSheet.create({
     fontFamily: theme.fonts.latoBold,
     fontSize: 25,
     color: theme.colors.black100,
+    paddingHorizontal: 13
 
   }
 })

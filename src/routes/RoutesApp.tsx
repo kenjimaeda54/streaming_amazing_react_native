@@ -14,6 +14,9 @@ export default function RoutesApp() {
     <Navigator
       screenOptions={{
         headerShown: false,
+        tabBarStyle: {
+          backgroundColor: "black"
+        }
       }}
       tabBar={(props) => <TabBar {...props} />}
     >

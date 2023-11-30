@@ -12,15 +12,21 @@ export const styles = StyleSheet.create({
     shadowColor: theme.colors.black100,
     shadowOffset: {
       width: 0,
-      height: 3,
+      height: 7,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.41,
+    shadowRadius: 9.11,
+
+    elevation: 14,
     paddingVertical: 4,
     paddingHorizontal: 3,
     borderRadius: 60,
-    elevation: 6,
-    marginHorizontal: 60
+    position: "absolute",
+    bottom: 70,
+    left: "16%",
+    right: "16%",
+    width: "66%",
+    alignSelf: "center"
   },
 
 })

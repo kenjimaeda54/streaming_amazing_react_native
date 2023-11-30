@@ -4,7 +4,8 @@ export default {
     red: "#DC1637",
     white: "#FFFFFF",
     white100: '#F4F5FA',
-    gray100: "#818589"
+    gray100: "#818589",
+    gray50: "#E5E4E2"
   },
   fonts: {
     latoBlack: 'Lato-Black',
