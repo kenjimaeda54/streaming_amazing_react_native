@@ -18,11 +18,11 @@ export default function RoutesApp() {
           backgroundColor: "black"
         }
       }}
+      initialRouteName="signIn"
       tabBar={(props) => <TabBar {...props} />}
     >
       <Screen name="home" component={HomeScreen} />
       <Screen name="location" component={Location} />
-      <Screen name="bookMark" component={BookMark} />
       <Screen name="profile" component={Profile} />
     </Navigator>
   )

@@ -48,6 +48,7 @@ target 'streaming_amazing' do
   target 'streaming_amazingTests' do
     inherit! :complete
     # Pods for testing
+    pod ‘GoogleSignIn’, ‘~> 7.0.0’
   end
 
   post_install do |installer|

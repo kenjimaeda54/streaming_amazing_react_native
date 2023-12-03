@@ -3,4 +3,5 @@ export type NavigationModel = {
   bookMark: undefined
   profile: undefined
   location: undefined
+  signIn: undefined
 }

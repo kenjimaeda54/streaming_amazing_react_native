@@ -3,5 +3,6 @@ export interface VideosWithChannelModel {
   thumbProfileChannel: string
   titleVideo: string
   isSubscribed: boolean
-  publishedVideo: string
+  publishedVideo: string,
+  nextPageToken?: string
 }

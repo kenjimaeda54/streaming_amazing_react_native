@@ -1,4 +1,4 @@
-import { ThumbnailsModel } from "./ThumbNailsModel"
+import { ThumbnailsModel } from "./ThumbnailsModel"
 
 export interface SearchVideoModel {
   kind: string,

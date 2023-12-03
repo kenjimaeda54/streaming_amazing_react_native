@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
   container: {
-    paddingVertical: 35,
+    paddingVertical: 15,
   },
   imageVideo: {
     width: "100%",

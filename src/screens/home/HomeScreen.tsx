@@ -1,5 +1,5 @@
 import useSearchViewModel from "@/view_models/useSearchViewModel";
-import { Image, Text, View } from "react-native";
+import { ActivityIndicator, Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { emojiFromUtf16 } from "rn-emoji-picker"
 import { styles } from "./home.styles";
@@ -8,16 +8,17 @@ import RowSubscription from "@/components/row_subscription/RowSubscription";
 import { subscriptionsMock } from "@/mocks/subscriptionsMock";
 import { videosMock } from "@/mocks/videosMock";
 import RowVideos from "@/components/row_videos/RowVideos";
+import theme from "@/theme/theme";
 
 
 
 
 export default function HomeScreen() {
-  const { data, isLoading } = useSearchViewModel()
+  const { videosWithChannel, isLoadingChannel, isLoadingSearchVideo, } = useSearchViewModel()
 
 
 
-  if (isLoading) {
+  if (isLoadingChannel || isLoadingSearchVideo) {
 
     return <Text>Loading</Text>
   }
@@ -55,7 +56,7 @@ export default function HomeScreen() {
         renderItem={RowSubscription}
       />
       <FlatList
-        data={videosMock}
+        data={videosWithChannel}
         contentContainerStyle={{
           paddingHorizontal: 13
         }}
@@ -65,3 +66,5 @@ export default function HomeScreen() {
     </SafeAreaView>
   )
 }
+
+
