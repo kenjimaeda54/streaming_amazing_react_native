@@ -16,10 +16,7 @@ import "react-native-devsettings";
 import Routes from "@/routes/Routes";
 
 
-//configurar android
-//https://dev.to/suyashdev/google-authsignin-in-react-native-without-firebase-43n
-//dica para fazer em ios configuracao
-//https://chaim-zalmy-muskal.medium.com/hi-6d328bbd550f
+
 export default function App() {
 
 

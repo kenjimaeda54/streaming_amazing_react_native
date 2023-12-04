@@ -10,7 +10,9 @@ export default function AuthenticationRoute() {
 
 
   return (
-    <Navigator>
+    <Navigator screenOptions={{
+      headerShown: false
+    }}>
       <Screen name="signIn" component={SignIn} />
     </Navigator>
   )

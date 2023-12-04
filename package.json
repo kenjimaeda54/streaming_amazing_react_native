@@ -25,7 +25,8 @@
     "react-native-screens": "^3.27.0",
     "react-native-svg-transformer": "^1.1.0",
     "react-native-youtube": "^2.0.2",
-    "rn-emoji-picker": "^1.1.6"
+    "rn-emoji-picker": "^1.1.6",
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

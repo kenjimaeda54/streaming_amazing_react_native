@@ -20,6 +20,7 @@ module.exports = {
           '@/test': './src/test',
           '@/server': './src/test/server',
           '@/client': './src/client',
+          '@/stores': './src/stores'
         },
         extensions: [
           '.js',
