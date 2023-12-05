@@ -1,26 +1,26 @@
 import useSearchViewModel from "@/view_models/useSearchViewModel";
-import { ActivityIndicator, Image, Text, View } from "react-native";
+import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { emojiFromUtf16 } from "rn-emoji-picker"
 import { styles } from "./home.styles";
 import { FlatList } from "react-native-gesture-handler";
 import RowSubscription from "@/components/row_subscription/RowSubscription";
 import { subscriptionsMock } from "@/mocks/subscriptionsMock";
-import { videosMock } from "@/mocks/videosMock";
 import RowVideos from "@/components/row_videos/RowVideos";
-import theme from "@/theme/theme";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { useShallow } from "zustand/react/shallow";
+import useUserViewModel from "@/view_models/useUserViewModel";
 
 
 
 
 export default function HomeScreen() {
-  const { videosWithChannel, isLoadingChannel, isLoadingSearchVideo, } = useSearchViewModel()
+  const { channelWithVideo, isLoading } = useSearchViewModel()
   const { userStore } = useUserAuthenticationStore(useShallow(state => ({ userStore: state.user })))
+  const { dataSubscription } = useUserViewModel()
 
 
-  if (isLoadingChannel || isLoadingSearchVideo) {
+  if (isLoading) {
 
     return <Text>Loading</Text>
   }
@@ -47,9 +47,9 @@ export default function HomeScreen() {
         style={{
           height: 120
         }}
-        data={subscriptionsMock}
+        data={dataSubscription.items}
         keyExtractor={(_, index) => `${index}`}
-        snapToOffsets={[...Array(subscriptionsMock.length).map((_, i) => i * (70 - 30) + (i - 1) * 30)]}
+        snapToOffsets={[...Array(dataSubscription.items).map((_, i) => i * (70 - 30) + (i - 1) * 30)]}
         showsHorizontalScrollIndicator={false}
         horizontal
         snapToAlignment="start"
@@ -58,7 +58,9 @@ export default function HomeScreen() {
         renderItem={RowSubscription}
       />
       <FlatList
-        data={videosWithChannel}
+        data={channelWithVideo}
+        maxToRenderPerBatch={5}
+        initialNumToRender={3}
         contentContainerStyle={{
           paddingHorizontal: 13
         }}

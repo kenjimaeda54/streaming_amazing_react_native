@@ -1,4 +1,6 @@
-interface SubscriptionModel {
-  linkIcon: string
-  name: string
+import { ItemsSnippet } from "./SearchVideoModel";
+
+
+export interface SubscriptionModel {
+  items: Array<ItemsSnippet>
 }

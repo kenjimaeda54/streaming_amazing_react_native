@@ -4,11 +4,12 @@ import { styles } from "./row_viedeos.style";
 
 
 export default function RowVideos({ item }: { item: VideosWithChannelModel }) {
+
   return (
     <View style={styles.container} >
       <Image style={styles.imageVideo} source={{ uri: item.thumbVideo }} />
       <View style={styles.rowProfile} >
-        <Image style={styles.imageProfile} source={{ uri: item.thumbProfileChannel }} />
+        <Image defaultSource={{ uri: "http://icon-park.com/imagefiles/movie_play_light_gray.png" }} style={styles.imageProfile} source={{ uri: item.thumbProfileChannel }} />
         <View style={styles.columnDescription}>
           <Text style={styles.title}  >{item.titleVideo}</Text>
           <Text style={styles.textPublished}>10 min</Text>

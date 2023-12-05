@@ -6,7 +6,7 @@ export interface SearchVideoModel {
   nextPageToken: string,
   regionCode: string,
   pageInfo: PageInfoModel,
-  items: Array<VideoModel>,
+  items: Array<ItemsSnippet>,
 
 }
 
@@ -16,7 +16,7 @@ export interface PageInfoModel {
   resultsPerPage: number,
 }
 
-export interface VideoModel {
+export interface ItemsSnippet {
   kind: string
   etag: string
   id: IdVideoModel

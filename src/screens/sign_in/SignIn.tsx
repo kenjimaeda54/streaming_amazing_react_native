@@ -1,5 +1,5 @@
-import { Text, View, TouchableOpacity, Image, StyleSheet, Pressable } from "react-native";
-import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin"
+import { Text, View, Image, Pressable } from "react-native";
+import { GoogleSignin, } from "@react-native-google-signin/google-signin"
 import { useEffect } from "react";
 import { styles } from "./sign_in.styles";
 import useUserViewModel from "@/view_models/useUserViewModel";

@@ -1,12 +1,14 @@
+import { SubscriptionModel } from "@/models/SubscriptionModel";
 import { UserAuthentication, UserModel } from "@/models/UserModel";
+import useSubscriptionService from "@/services/useSubscriptionService";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
-import { useShallow } from "zustand/react/shallow"
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
 import { useEffect, useState } from "react";
 
 
 interface IUseUserViewModel {
   handleLogin: () => void,
+  dataSubscription: SubscriptionModel
 }
 
 //configurar android
@@ -19,6 +21,7 @@ export default function useUserViewModel(): IUseUserViewModel {
   const update = useUserAuthenticationStore(
     state => state.updateUser
   )
+  const { data: dataSubscription } = useSubscriptionService()
 
 
   useEffect(() => {
@@ -39,12 +42,13 @@ export default function useUserViewModel(): IUseUserViewModel {
     try {
       await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
       const userInfo = await GoogleSignin.signIn()
+      const token = await GoogleSignin.getTokens()
       const user: UserModel = {
         givenName: userInfo.user.givenName ?? userInfo.user.name,
         photo: userInfo.user.photo
 
       }
-      update({ idToken: userInfo.idToken, user: user })
+      update({ idToken: token.accessToken, user: user })
     } catch (error: unknown) {
       if (error instanceof Error && error.message === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         console.log
@@ -58,6 +62,7 @@ export default function useUserViewModel(): IUseUserViewModel {
 
   return {
     handleLogin,
+    dataSubscription
   }
 
 }
