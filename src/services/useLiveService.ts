@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { VideosWithChannelModel } from "@/models/VideosWithChannelModel";
 
 
-interface IUseSearchVideo {
+interface IUseLiveServices {
   isLoading: boolean,
   channelWithVideo: VideosWithChannelModel[],
   isSuccess: boolean,
@@ -15,8 +15,8 @@ interface IUseSearchVideo {
 
 }
 
-async function searchVideo(signal: AbortSignal): Promise<SearchVideoModel> {
-  const response = await api.get(`/search?part=snippet&relevanceLanguage=pt&maxResults=10&videoDuration=medium&type=video&regionCode=BR&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
+async function searchLives(signal: AbortSignal): Promise<SearchVideoModel> {
+  const response = await api.get(`/search?part=snippet&eventType=live&maxResults=10&regionCode=BR&relevanceLanguage=pt&type=video&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -24,7 +24,6 @@ async function searchVideo(signal: AbortSignal): Promise<SearchVideoModel> {
   })
   return response.data
 }
-
 
 async function searchChannel(channelId: string): Promise<ChannelModel> {
   const response = await api.get(`/channels?part=snippet&id=${channelId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
@@ -36,7 +35,7 @@ async function searchChannel(channelId: string): Promise<ChannelModel> {
   return response.data as ChannelModel
 }
 
-export default function useVideosWithChannelService(): IUseSearchVideo {
+export default function useLiveServices(): IUseLiveServices {
 
 
   const { data: dataSearchVideo = {
@@ -50,18 +49,17 @@ export default function useVideosWithChannelService(): IUseSearchVideo {
       resultsPerPage: 0
     }
   } as SearchVideoModel, isSuccess: successSearchVideo } = useQuery({
-    queryKey: [Constants.searchVideos],
-    queryFn: ({ signal }) => searchVideo(signal),
+    queryKey: [Constants.searchLives],
+    queryFn: ({ signal }) => searchLives(signal),
   })
 
 
 
-  //aqui precisa ser um um id presente no seu array para que o useQueries considera instavel e para de fazer request$
   const ids = dataSearchVideo.items.map(it => it.snippet.channelId)
   const combineQueries = useQueries({
     queries: ids.map(it => {
       return {
-        queryKey: [Constants.channelVideos, `${it}`],
+        queryKey: [Constants.channelLives, `${it}`],
         queryFn: () => searchChannel(it),
         enabled: successSearchVideo,
       }

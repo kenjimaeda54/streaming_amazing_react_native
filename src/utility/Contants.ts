@@ -1,6 +1,8 @@
 export class Constants {
-  static searchMovie = 'searchMovieTankQuery'
-  static channel = "channelTankQuery"
+  static searchVideos = 'searchVideosTankQuery'
+  static channelVideos = "channelVideosTankQuery"
   static authenticationUser = "authenticationUserTankQuery"
   static subscriptionUser = "subscriptionUser"
+  static searchLives = 'searchLivesTankQuery'
+  static channelLives = 'channelLivesTankQuery'
 }

@@ -3,8 +3,8 @@ import HomeScreen from "@/screens/home/HomeScreen"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import TabBar from "./component/TabBar"
 import BookMark from "@/screens/book_mark/BookMark"
-import Location from "@/screens/location/Location"
 import Profile from "@/screens/profile/Profile"
+import Live from "@/screens/live/LiveScreen"
 
 export default function RoutesApp() {
 
@@ -22,7 +22,7 @@ export default function RoutesApp() {
       tabBar={(props) => <TabBar {...props} />}
     >
       <Screen name="home" component={HomeScreen} />
-      <Screen name="location" component={Location} />
+      <Screen name="live" component={Live} />
       <Screen name="profile" component={Profile} />
     </Navigator>
   )

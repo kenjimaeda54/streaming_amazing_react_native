@@ -1,27 +1,25 @@
-import useSearchViewModel from "@/view_models/useSearchViewModel";
 import { Image, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { emojiFromUtf16 } from "rn-emoji-picker"
 import { styles } from "./home.styles";
 import { FlatList } from "react-native-gesture-handler";
 import RowSubscription from "@/components/row_subscription/RowSubscription";
-import { subscriptionsMock } from "@/mocks/subscriptionsMock";
 import RowVideos from "@/components/row_videos/RowVideos";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { useShallow } from "zustand/react/shallow";
 import useUserViewModel from "@/view_models/useUserViewModel";
+import useSearchVideoWithChannelViewModel from "@/view_models/useSearchVideoWithChannelViewModel";
 
 
 
 
 export default function HomeScreen() {
-  const { channelWithVideo, isLoading } = useSearchViewModel()
+  const { isLoading, channelWithVideo } = useSearchVideoWithChannelViewModel()
   const { userStore } = useUserAuthenticationStore(useShallow(state => ({ userStore: state.user })))
   const { dataSubscription } = useUserViewModel()
 
 
   if (isLoading) {
-
     return <Text>Loading</Text>
   }
 
@@ -64,8 +62,8 @@ export default function HomeScreen() {
         contentContainerStyle={{
           paddingHorizontal: 13
         }}
-        keyExtractor={(_, index) => `${index}`}
-        renderItem={RowVideos}
+        keyExtractor={(it, index) => `${it.id}-${index}`}
+        renderItem={({ item }) => <RowVideos item={item} snippetSubscription={dataSubscription.items} />}
       />
     </SafeAreaView>
   )

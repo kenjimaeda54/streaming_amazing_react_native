@@ -11,9 +11,8 @@ export default function TabBar({ ...props }: BottomTabBarProps) {
 
   const listIcon = {
     'home': require("../../../assets/images/bottom_tab/home.png"),
-    'bookMark': require("../../../assets/images/bottom_tab/bookMark.png"),
     'profile': require("../../../assets/images/bottom_tab/profile.png"),
-    'location': require("../../../assets/images/bottom_tab/location.png")
+    'live': require("../../../assets/images/bottom_tab/live.png")
   } as unknown as { [key: string]: ImageSourcePropType }
 
 
@@ -44,7 +43,7 @@ export default function TabBar({ ...props }: BottomTabBarProps) {
 
         return (
           <TouchableOpacity onPress={handleNavigation} style={styleButton(isFocused).button} key={route.name} >
-            <Image source={listIcon[label as string]} resizeMode="contain" style={{ width: 30, height: 30 }} tintColor={isFocused ? theme.colors.white : theme.colors.black100} />
+            <Image source={listIcon[label as string]} resizeMode="cover" style={{ width: 30, height: 30 }} tintColor={isFocused ? theme.colors.white : theme.colors.black100} />
           </TouchableOpacity>
         )
 

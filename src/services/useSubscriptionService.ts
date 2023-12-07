@@ -12,7 +12,7 @@ interface IUserSubscriptionService {
 }
 
 async function fetchSubscriptionUser(userToken: string, signal: AbortSignal): Promise<SubscriptionModel> {
-  const response = await api.get("/subscriptions?part=snippet&maxResults=10&mine=true&key=AIzaSyC6pfq4kSrvQk1eJ55K6cr_89a2z5HbCPo", {
+  const response = await api.get("/subscriptions?part=snippet&maxResults=10&mine=true&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw", {
     headers: {
       Authorization: `Bearer ${userToken}`
     },

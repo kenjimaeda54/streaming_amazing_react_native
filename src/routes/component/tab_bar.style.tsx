@@ -14,9 +14,9 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 7,
     },
+    zIndex: 100,
     shadowOpacity: 0.41,
     shadowRadius: 9.11,
-
     elevation: 14,
     paddingVertical: 4,
     paddingHorizontal: 3,

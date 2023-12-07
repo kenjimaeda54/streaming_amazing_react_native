@@ -1,9 +1,9 @@
 import { SubscriptionModel } from "@/models/SubscriptionModel";
-import { UserAuthentication, UserModel } from "@/models/UserModel";
+import { UserModel } from "@/models/UserModel";
 import useSubscriptionService from "@/services/useSubscriptionService";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 
 interface IUseUserViewModel {
@@ -28,8 +28,8 @@ export default function useUserViewModel(): IUseUserViewModel {
 
     GoogleSignin.configure({
       scopes: ['https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.channel-memberships.creator', 'https://www.googleapis.com/auth/youtube'],
-      webClientId: "129472962547-kiqeddbdh2kb7knnf39qfmejo2k1hlab.apps.googleusercontent.com",
-      iosClientId: '129472962547-3ah1b2iakfg7jg5s7m4d3u8qffiuncpk.apps.googleusercontent.com',
+      webClientId: "46079490013-en3bvel31eb51eif6oakeptareoo2k4q.apps.googleusercontent.com",
+      iosClientId: '46079490013-e190vc68lfc40ld4uhnsgeu814s77392.apps.googleusercontent.com',
       offlineAccess: true,
       profileImageSize: 120,
     });
