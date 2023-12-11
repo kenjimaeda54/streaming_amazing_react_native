@@ -41,6 +41,10 @@ export default function TabBar({ ...props }: BottomTabBarProps) {
           }
         }
 
+        if (label === "stackRoute") {
+          return null
+        }
+
         return (
           <TouchableOpacity onPress={handleNavigation} style={styleButton(isFocused).button} key={route.name} >
             <Image source={listIcon[label as string]} resizeMode="cover" style={{ width: 30, height: 30 }} tintColor={isFocused ? theme.colors.white : theme.colors.black100} />

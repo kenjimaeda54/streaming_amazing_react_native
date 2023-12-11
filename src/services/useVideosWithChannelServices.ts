@@ -79,7 +79,9 @@ export default function useVideosWithChannelService(): IUseSearchVideo {
               thumbVideo: video.snippet.thumbnails.high.url,
               isSubscribed: false,
               publishedVideo: video.snippet.publishedAt,
-              titleVideo: video.snippet.title
+              titleVideo: video.snippet.title,
+              descriptionVideo: video.snippet.description,
+              videoId: video.id.videoId
             } as VideosWithChannelModel
 
           } else {

@@ -1,14 +1,21 @@
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
-import AuthenticationRoute from "./AuthenticationRoute";
+import StackRoute from "./StackRoute";
 import { useShallow } from "zustand/react/shallow";
 import RoutesApp from "./RoutesApp";
+import useUserViewModel from "@/view_models/useUserViewModel";
+import { Text } from "react-native";
 
 
 export default function Routes() {
-  const { user } = useUserAuthenticationStore(useShallow(state => ({ user: state.user })))
+  const { user, isLoadingLogin } = useUserViewModel()
+
+  if (isLoadingLogin) {
+    return <Text>Carregando</Text>
+  }
+
   return (
     <>
-      {user.idToken != null ? <RoutesApp /> : <AuthenticationRoute />}
+      {user.idToken != null ? <RoutesApp /> : <StackRoute />}
     </>
 
   )

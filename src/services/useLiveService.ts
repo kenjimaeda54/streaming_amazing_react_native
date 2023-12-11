@@ -77,7 +77,9 @@ export default function useLiveServices(): IUseLiveServices {
               thumbVideo: video.snippet.thumbnails.high.url,
               isSubscribed: false,
               publishedVideo: video.snippet.publishedAt,
-              titleVideo: video.snippet.title
+              titleVideo: video.snippet.title,
+              videoId: video.id.videoId,
+              descriptionVideo: video.snippet.description
             } as VideosWithChannelModel
 
           } else {

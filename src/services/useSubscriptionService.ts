@@ -27,7 +27,7 @@ export default function useSubscriptionService(): IUserSubscriptionService {
     useShallow(state => ({ userStore: state.user }))
   )
 
-  const { data = {} as SubscriptionModel, isLoading } = useQuery({ queryKey: [Constants.subscriptionUser], queryFn: ({ signal }) => fetchSubscriptionUser(userStore.idToken!, signal) })
+  const { data = {} as SubscriptionModel, isLoading } = useQuery({ queryKey: [Constants.subscriptionUser, userStore.idToken], queryFn: ({ signal }) => fetchSubscriptionUser(userStore.idToken!, signal) })
 
 
   return {

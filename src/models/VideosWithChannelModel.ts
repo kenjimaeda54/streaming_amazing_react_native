@@ -5,5 +5,7 @@ export interface VideosWithChannelModel {
   isSubscribed: boolean
   publishedVideo: string,
   nextPageToken?: string,
-  id: string
+  id: string,
+  videoId: string
+  descriptionVideo: string
 }

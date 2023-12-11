@@ -5,6 +5,7 @@ import TabBar from "./component/TabBar"
 import BookMark from "@/screens/book_mark/BookMark"
 import Profile from "@/screens/profile/Profile"
 import Live from "@/screens/live/LiveScreen"
+import StackRoute from "./StackRoute"
 
 export default function RoutesApp() {
 
@@ -24,6 +25,7 @@ export default function RoutesApp() {
       <Screen name="home" component={HomeScreen} />
       <Screen name="live" component={Live} />
       <Screen name="profile" component={Profile} />
+      <Screen name="stackRoute" component={StackRoute} />
     </Navigator>
   )
 }

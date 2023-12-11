@@ -7,5 +7,6 @@ export interface UserAuthentication {
 
 export interface UserModel {
   photo: string | null
-  givenName: String | null
+  givenName: string | null
+  email: string
 }

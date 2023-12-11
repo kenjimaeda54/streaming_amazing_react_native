@@ -1,4 +1,4 @@
-import { Image, Text, View } from "react-native";
+import { Image, Pressable, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { emojiFromUtf16 } from "rn-emoji-picker"
 import { styles } from "./home.styles";
@@ -9,17 +9,19 @@ import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { useShallow } from "zustand/react/shallow";
 import useUserViewModel from "@/view_models/useUserViewModel";
 import useSearchVideoWithChannelViewModel from "@/view_models/useSearchVideoWithChannelViewModel";
+import { useNavigation } from "@react-navigation/native";
 
 
 
 
 export default function HomeScreen() {
-  const { isLoading, channelWithVideo } = useSearchVideoWithChannelViewModel()
+  const { isLoading: isLoadingSearchVideo, channelWithVideo } = useSearchVideoWithChannelViewModel()
+  const { navigate } = useNavigation()
   const { userStore } = useUserAuthenticationStore(useShallow(state => ({ userStore: state.user })))
-  const { dataSubscription } = useUserViewModel()
+  const { dataSubscription, isLoadingDataSubscription } = useUserViewModel()
 
 
-  if (isLoading) {
+  if (isLoadingSearchVideo || isLoadingDataSubscription) {
     return <Text>Loading</Text>
   }
 
@@ -63,7 +65,9 @@ export default function HomeScreen() {
           paddingHorizontal: 13
         }}
         keyExtractor={(it, index) => `${it.id}-${index}`}
-        renderItem={({ item }) => <RowVideos item={item} snippetSubscription={dataSubscription.items} />}
+        renderItem={({ item }) => <Pressable onPress={() => navigate("stackRoute", { screen: 'playVideo', params: item })}>
+          <RowVideos item={item} snippetSubscription={dataSubscription.items} />
+        </Pressable>}
       />
     </SafeAreaView>
   )

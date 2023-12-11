@@ -1,14 +1,19 @@
 import { SubscriptionModel } from "@/models/SubscriptionModel";
-import { UserModel } from "@/models/UserModel";
+import { UserAuthentication, UserModel } from "@/models/UserModel";
 import useSubscriptionService from "@/services/useSubscriptionService";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
-import { useEffect } from "react";
+import { useNavigation } from "@react-navigation/native";
+import { useEffect, useState } from "react";
 
 
 interface IUseUserViewModel {
   handleLogin: () => void,
-  dataSubscription: SubscriptionModel
+  dataSubscription: SubscriptionModel,
+  user: UserAuthentication,
+  isLoadingDataSubscription: boolean,
+  isLoadingLogin: boolean,
+  handleSingOut: () => void
 }
 
 //configurar android
@@ -18,10 +23,11 @@ interface IUseUserViewModel {
 //https://chaim-zalmy-muskal.medium.com/hi-6d328bbd550f
 
 export default function useUserViewModel(): IUseUserViewModel {
-  const update = useUserAuthenticationStore(
-    state => state.updateUser
+  const store = useUserAuthenticationStore(
+    state => ({ update: state.updateUser, authentication: state.user })
   )
-  const { data: dataSubscription } = useSubscriptionService()
+  const { data: dataSubscription, isLoading: isLoadingDataSubscription } = useSubscriptionService()
+  const [isLoadingLogin, setIsLoadingLogin] = useState(true)
 
 
   useEffect(() => {
@@ -34,7 +40,32 @@ export default function useUserViewModel(): IUseUserViewModel {
       profileImageSize: 120,
     });
 
+
+    handleIsSignIn()
+
   }, [])
+
+
+  async function handleIsSignIn() {
+    try {
+      const isSignedIn = await GoogleSignin.isSignedIn()
+      if (isSignedIn) {
+        const currentUser = await GoogleSignin.getCurrentUser()
+        const userInfo = currentUser === null ? await GoogleSignin.signInSilently() : currentUser
+        const token = await GoogleSignin.getTokens()
+        const user: UserModel = {
+          givenName: userInfo.user.givenName ?? userInfo.user.name,
+          photo: userInfo.user.photo,
+          email: userInfo.user.email
+
+        }
+        store.update({ idToken: token.accessToken, user })
+      }
+    } finally {
+      setIsLoadingLogin(false)
+    }
+
+  }
 
 
 
@@ -45,24 +76,44 @@ export default function useUserViewModel(): IUseUserViewModel {
       const token = await GoogleSignin.getTokens()
       const user: UserModel = {
         givenName: userInfo.user.givenName ?? userInfo.user.name,
-        photo: userInfo.user.photo
+        photo: userInfo.user.photo,
+        email: userInfo.user.email
 
       }
-      update({ idToken: token.accessToken, user: user })
+      store.update({ idToken: token.accessToken, user: user })
     } catch (error: unknown) {
       if (error instanceof Error && error.message === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-        console.log
+        console.log("sem play services disponivel")
       } else if (error instanceof Error) {
         console.error(error.message)
       }
 
     }
+  }
 
+  async function handleSingOut() {
+    try {
+      await GoogleSignin.signOut()
+      await GoogleSignin.revokeAccess()
+      const user: UserModel = {
+        givenName: null,
+        photo: null,
+        email: ""
+
+      }
+      store.update({ idToken: null, user: user })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return {
     handleLogin,
-    dataSubscription
+    dataSubscription,
+    user: store.authentication,
+    isLoadingDataSubscription,
+    isLoadingLogin,
+    handleSingOut
   }
 
 }

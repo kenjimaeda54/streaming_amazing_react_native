@@ -5,7 +5,7 @@ import { ItemsSnippet } from "@/models/SearchVideoModel";
 
 
 export default function RowVideos({ item, snippetSubscription }: { item: VideosWithChannelModel, snippetSubscription: ItemsSnippet[] }) {
-  const isSigned = !!snippetSubscription.find(it => it.snippet.channelId === item.id)
+  const isSigned = !!snippetSubscription?.find(it => it.snippet.channelId === item.id)
 
   return (
     <View style={styles.container} >
