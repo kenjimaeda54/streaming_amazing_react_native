@@ -10,6 +10,7 @@ export interface ChannelModel {
 export interface Items {
   id: string
   snippet: Snippet
+  statistics: Statistics
 }
 export interface Snippet {
   title: string
@@ -17,4 +18,8 @@ export interface Snippet {
   customUrl: string
   publishedAt: string
   thumbnails: ThumbnailsModel
+}
+
+interface Statistics {
+  subscriberCount: string
 }

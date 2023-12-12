@@ -30,7 +30,6 @@ export interface Snippet {
   description: string,
   thumbnails: ThumbnailsModel,
   channelTitle: string,
-  liveBroadcastContent: string,
 
 }
 

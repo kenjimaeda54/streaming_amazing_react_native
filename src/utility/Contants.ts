@@ -5,4 +5,5 @@ export class Constants {
   static subscriptionUser = "subscriptionUser"
   static searchLives = 'searchLivesTankQuery'
   static channelLives = 'channelLivesTankQuery'
+  static videos = "videosTankQuery"
 }

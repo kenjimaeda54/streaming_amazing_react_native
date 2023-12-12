@@ -26,7 +26,7 @@ async function searchLives(signal: AbortSignal): Promise<SearchVideoModel> {
 }
 
 async function searchChannel(channelId: string): Promise<ChannelModel> {
-  const response = await api.get(`/channels?part=snippet&id=${channelId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
+  const response = await api.get(`/channels?part=statistics&part=snippet&id=${channelId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
     headers: {
       "Content-Type": "application/json",
     },
@@ -79,7 +79,8 @@ export default function useLiveServices(): IUseLiveServices {
               publishedVideo: video.snippet.publishedAt,
               titleVideo: video.snippet.title,
               videoId: video.id.videoId,
-              descriptionVideo: video.snippet.description
+              descriptionVideo: video.snippet.description,
+              subscriberCountChannel: data?.items[0].statistics.subscriberCount
             } as VideosWithChannelModel
 
           } else {
