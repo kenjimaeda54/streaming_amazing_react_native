@@ -1,6 +1,7 @@
 import theme from "@/theme/theme";
-import { StyleSheet } from "react-native";
+import { Dimensions, StyleSheet } from "react-native";
 
+const height = Dimensions.get('screen').height
 
 export const styles = StyleSheet.create({
   thumbVideo: {
@@ -16,6 +17,27 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start"
   },
+  header: {
+    position: 'absolute',
+    top: height * 0.08,
+    elevation: 100,
+    left: 25,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  touchButtonBack: {
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center"
+  },
+  imageBack: {
+    width: 20,
+    height: 20,
+  },
   titleVideo: {
     fontFamily: theme.fonts.latoBold,
     fontSize: 25,
@@ -27,7 +49,8 @@ export const styles = StyleSheet.create({
   contentBody: {
     flex: 1,
     gap: 20,
-    paddingHorizontal: 13
+    paddingHorizontal: 13,
+    paddingBottom: 50,
   },
   textPublishedVideo: {
     fontFamily: theme.fonts.latoLight,
