@@ -1,9 +1,9 @@
 import useUserViewModel from "@/view_models/useUserViewModel";
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ColumnTitleAndSubTitle from "./components/column_title_and_subtitle/ColumnTitleAndSubtitle";
-import { styles } from "./profile.styles";
-import { useNavigation } from "@react-navigation/native";
+import theme from "@/theme/theme";
+
 
 export default function Profile() {
   const { user, handleSingOut } = useUserViewModel()
@@ -21,3 +21,29 @@ export default function Profile() {
     </SafeAreaView>
   )
 }
+
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 30,
+    paddingHorizontal: 10,
+    gap: 10,
+  },
+  imageProfile: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    alignSelf: 'center'
+  },
+
+  columnContent: {
+    gap: 20,
+
+  },
+  textSingOut: {
+    fontFamily: theme.fonts.poppinsMedium,
+    fontSize: 18,
+    color: theme.colors.red,
+    marginTop: 50,
+  }
+})

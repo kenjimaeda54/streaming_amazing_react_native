@@ -32,7 +32,7 @@ export default function LiveScreen() {
           paddingHorizontal: 13
         }}
         keyExtractor={(it, index) => `${it.id}-${index}`}
-        renderItem={({ item }) => <RowVideos item={item} snippetSubscription={dataSubscription.items} />}
+        renderItem={({ item }) => <RowVideos item={item} itensSubscription={dataSubscription.items} />}
       />
     </SafeAreaView>
   )

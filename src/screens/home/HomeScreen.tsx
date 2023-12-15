@@ -1,7 +1,6 @@
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { emojiFromUtf16 } from "rn-emoji-picker"
-import { styles } from "./home.styles";
 import { FlatList } from "react-native-gesture-handler";
 import RowSubscription from "@/components/row_subscription/RowSubscription";
 import RowVideos from "@/components/row_videos/RowVideos";
@@ -10,6 +9,7 @@ import { useShallow } from "zustand/react/shallow";
 import useUserViewModel from "@/view_models/useUserViewModel";
 import useSearchVideoWithChannelViewModel from "@/view_models/useSearchVideoWithChannelViewModel";
 import { useNavigation } from "@react-navigation/native";
+import theme from "@/theme/theme";
 
 
 
@@ -24,6 +24,9 @@ export default function HomeScreen() {
   if (isLoadingSearchVideo || isLoadingDataSubscription) {
     return <Text>Loading</Text>
   }
+
+
+
 
   return (
     <SafeAreaView edges={['top']} style={{
@@ -55,7 +58,7 @@ export default function HomeScreen() {
         snapToAlignment="start"
         decelerationRate="fast"
         scrollEventThrottle={16}
-        renderItem={RowSubscription}
+        renderItem={({ item }) => <Pressable onPress={() => navigate("stackRoute", { screen: 'subscriptionVideos', params: item })}  ><RowSubscription item={item} /></Pressable>}
       />
       <FlatList
         data={channelWithVideo}
@@ -66,7 +69,7 @@ export default function HomeScreen() {
         }}
         keyExtractor={(it, index) => `${it.id}-${index}`}
         renderItem={({ item }) => <Pressable onPress={() => navigate("stackRoute", { screen: 'playVideo', params: item })}>
-          <RowVideos item={item} snippetSubscription={dataSubscription.items} />
+          <RowVideos item={item} itensSubscription={dataSubscription.items} />
         </Pressable>}
       />
     </SafeAreaView>
@@ -74,3 +77,33 @@ export default function HomeScreen() {
 }
 
 
+const styles = StyleSheet.create({
+  rowPresentation: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingHorizontal: 13,
+  },
+  presentationWelcome: {
+    fontFamily: theme.fonts.latoLight,
+    fontSize: 15,
+    color: theme.colors.gray100
+  },
+  presentationName: {
+    fontFamily: theme.fonts.poppinsBold,
+    fontSize: 17,
+    color: theme.colors.black100
+  },
+  rowWelcome: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5
+  },
+  textSubscriptions: {
+    fontFamily: theme.fonts.latoBold,
+    fontSize: 25,
+    color: theme.colors.black100,
+    paddingHorizontal: 13
+
+  }
+})

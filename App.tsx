@@ -5,8 +5,6 @@
  * @format
  */
 
-import RoutesApp from "@/routes/RoutesApp";
-import HomeScreen from "@/screens/home/HomeScreen";
 import { queryClient } from "@/services/query_client";
 import theme from "@/theme/theme";
 import { NavigationContainer } from "@react-navigation/native";

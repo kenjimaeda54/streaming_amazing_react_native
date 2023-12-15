@@ -1,5 +1,5 @@
-import { styles } from "./column_title_subtitle.style"
-import { Text, View } from "react-native"
+import theme from "@/theme/theme"
+import { StyleSheet, Text, View } from "react-native"
 
 interface IColumnTitleAndSubTitle {
   title: string,
@@ -14,3 +14,20 @@ export default function ColumnTitleAndSubTitle({ title, subTitle }: IColumnTitle
     </View>
   )
 }
+
+
+const styles = StyleSheet.create({
+  column: {
+    gap: 5,
+  },
+  title: {
+    fontFamily: theme.fonts.latoBlack,
+    fontSize: 21,
+    color: theme.colors.black100
+  },
+  subTitle: {
+    fontFamily: theme.fonts.latoLight,
+    fontSize: 19,
+    color: theme.colors.gray100
+  }
+})

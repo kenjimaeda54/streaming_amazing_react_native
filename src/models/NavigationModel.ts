@@ -1,3 +1,5 @@
+import { ChannelModel } from "./ChannelModel"
+import { ItensSubscription, SnippetSubscription } from "./SubscriptionModel"
 import { VideosWithChannelModel } from "./VideosWithChannelModel"
 
 export type NavigationModel = {
@@ -8,7 +10,8 @@ export type NavigationModel = {
   tabNavigator: undefined
   stackRoute: {
     screen: string,
-    params: undefined | VideosWithChannelModel
-  }
+    params: undefined | VideosWithChannelModel | ItensSubscription
+  },
   playVideo: { videoWithChannel: VideosWithChannelModel }
+  subscriptionVideos: { channel: ItensSubscription }
 }

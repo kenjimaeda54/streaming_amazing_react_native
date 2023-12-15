@@ -6,4 +6,6 @@ export class Constants {
   static searchLives = 'searchLivesTankQuery'
   static channelLives = 'channelLivesTankQuery'
   static videos = "videosTankQuery"
+  static playListVideosChannel = "playsVideosChannel"
+  static playListItemVideoChannel = "playListItemVideosChannel"
 }

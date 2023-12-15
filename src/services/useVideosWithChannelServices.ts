@@ -82,7 +82,8 @@ export default function useVideosWithChannelService(): IUseSearchVideo {
               titleVideo: video.snippet.title,
               descriptionVideo: video.snippet.description,
               videoId: video.id.videoId,
-              subscriberCountChannel: data?.items[0].statistics.subscriberCount
+              subscriberCountChannel: data?.items[0].statistics.subscriberCount,
+              channelId: video.snippet.channelId
             } as VideosWithChannelModel
 
           } else {

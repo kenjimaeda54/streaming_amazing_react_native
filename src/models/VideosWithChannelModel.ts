@@ -9,5 +9,6 @@ export interface VideosWithChannelModel {
   videoId: string
   descriptionVideo: string
   subscriberCountChannel: string
+  channelId: string
 
 }
