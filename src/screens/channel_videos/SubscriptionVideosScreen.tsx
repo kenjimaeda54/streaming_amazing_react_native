@@ -1,20 +1,22 @@
 import BackButton from "@/components/back_button/BackButton";
-import RowVideos from "@/components/row_videos/RowVideos";
 import { PlayListItem } from "@/models/PlayListItem";
 import { ItensSubscription } from "@/models/SubscriptionModel";
 import theme from "@/theme/theme";
 import useUserViewModel from "@/view_models/useUserViewModel";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useEffect } from "react";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { Image, Pressable, StyleSheet, Text, View, FlatList } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 
 function RowVideoSubscription({ item }: { item: PlayListItem | undefined }) {
+  const linkImage = item?.items[0].snippet.thumbnails?.high !== undefined ? item.items[0].snippet.thumbnails.high.url : "https://telhafer.com.br/image/no_image.jpg"
+
+
+
   return (
     <Pressable>
-      <Image style={styles.logoVideo} source={{ uri: item?.items[0].snippet.thumbnails.high.url }} />
+      <Image style={styles.logoVideo} source={{ uri: linkImage }} />
       <View style={styles.columnDescription}>
         <Text style={styles.titleVideo} numberOfLines={2}>{item?.items[0].snippet.title}</Text>
         <Text style={styles.textDescription} numberOfLines={2} >{item?.items[0].snippet.description}</Text>

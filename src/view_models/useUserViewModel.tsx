@@ -1,7 +1,7 @@
 import { PlayListItem } from "@/models/PlayListItem";
 import { SubscriptionModel } from "@/models/SubscriptionModel";
 import { UserAuthentication, UserModel } from "@/models/UserModel";
-import usePlayLisChannelSubscriptionService from "@/services/usePlayListChannelSubscriptionService";
+import usePlayListChannelSubscriptionService from "@/services/usePlayListChannelSubscriptionService";
 import useSubscriptionService from "@/services/useSubscriptionService";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
@@ -32,7 +32,7 @@ export default function useUserViewModel(): IUseUserViewModel {
     state => ({ update: state.updateUser, authentication: state.user })
   )
   const { data: dataSubscription, isLoading: isLoadingDataSubscription } = useSubscriptionService()
-  const { data: dataPlayListSubscription, isLoading: isLoadingSubscription, refetch, channelId } = usePlayLisChannelSubscriptionService()
+  const { data: dataPlayListSubscription, isLoading: isLoadingSubscription, refetch, channelId } = usePlayListChannelSubscriptionService()
   const [isLoadingLogin, setIsLoadingLogin] = useState(true)
 
 

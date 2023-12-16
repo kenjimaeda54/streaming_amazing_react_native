@@ -23,19 +23,11 @@ async function fetchPlayList(channelId: string, signal: AbortSignal): Promise<Pl
   return response.data
 }
 
-//preciso buscar o dataSubscription
-
-
-//logica e pegar o dataSubscription propriedade resourceId e buscar o channelId
-
-//chamar o fetchPlayList coom channelId depois pegar a propriedade id,
-
-//depois chamar o fetchPlayListItem com id  da playlist,dai montar um generico que ira mostrar no canall
 
 
 
 
-export default function usePlayLisChannelSubscriptionService(): IUsePlayListService {
+export default function usePlayListChannelSubscriptionService(): IUsePlayListService {
   const channelId = useRef("")
 
 
