@@ -26,8 +26,6 @@ export default function HomeScreen() {
   }
 
 
-
-
   return (
     <SafeAreaView edges={['top']} style={{
       flex: 1,

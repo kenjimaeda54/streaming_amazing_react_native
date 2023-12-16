@@ -14,7 +14,7 @@ export default function StackRoute() {
 
   return (
     <Navigator screenOptions={{
-      headerShown: false
+      headerShown: false,
     }}>
       <Screen name="signIn" component={SignIn} />
       <Screen name="tabNavigator" component={RoutesApp} />

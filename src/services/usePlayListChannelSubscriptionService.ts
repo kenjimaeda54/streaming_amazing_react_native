@@ -30,9 +30,7 @@ async function fetchPlayList(channelId: string, signal: AbortSignal): Promise<Pl
 export default function usePlayListChannelSubscriptionService(): IUsePlayListService {
   const channelId = useRef("")
 
-
   const { data = { items: [] } as PlayListModel, isSuccess, refetch, isLoading } = useQuery({ queryKey: [Constants.playListVideosChannel, channelId.current], queryFn: ({ signal }) => fetchPlayList(channelId.current, signal) })
-
 
   const ids = data.items.map(it => it.id)
   const combineQueries = useQueries({

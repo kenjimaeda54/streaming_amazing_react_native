@@ -5,28 +5,18 @@
  * @format
  */
 
-import { queryClient } from "@/services/query_client";
-import theme from "@/theme/theme";
-import { NavigationContainer } from "@react-navigation/native";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
+
 import "react-native-devsettings";
-import Routes from "@/routes/Routes";
+import NavigationProvider from "@/stores/useNavigationProvider";
+import ProviderRoute from "@/routes/ProviderRoute";
 
 
 
 export default function App() {
 
-
-
   return (
-    <NavigationContainer>
-      <QueryClientProvider client={queryClient} >
-        <GestureHandlerRootView style={{ flex: 1, backgroundColor: theme.colors.white100 }}>
-          <Routes />
-        </GestureHandlerRootView>
-      </QueryClientProvider>
-    </NavigationContainer>
-
+    <NavigationProvider>
+      <ProviderRoute />
+    </NavigationProvider>
   )
 }

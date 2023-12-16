@@ -1,14 +1,15 @@
+import { useNavigationContext } from "@/stores/useNavigationProvider"
 import { BlurView } from "@react-native-community/blur"
-import { useNavigation } from "@react-navigation/native"
-import { Dimensions, Image, StyleSheet, TouchableOpacity } from "react-native"
+import { useNavigation, useNavigationContainerRef } from "@react-navigation/native"
+import { Image, StyleSheet, TouchableOpacity } from "react-native"
 
 
 export default function BackButton() {
-  const { goBack } = useNavigation()
+  const { navigationRef } = useNavigationContext()
 
   return (
     <BlurView blurType="light" blurAmount={10} style={styles.header}>
-      <TouchableOpacity onPress={goBack} style={styles.touchButtonBack} >
+      <TouchableOpacity onPress={() => navigationRef.resetRoot({ index: 0, routes: [{ name: "home" }] })} style={styles.touchButtonBack} >
         <Image source={require("../../../assets/images/app/back.png")} style={styles.imageBack} resizeMode="cover" />
       </TouchableOpacity>
     </BlurView>

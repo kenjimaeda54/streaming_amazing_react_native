@@ -31,7 +31,7 @@ export default function PlayVideo() {
   }, [videoWithChannel, isLoading])
 
 
-  if (videoWithChannel === null || isLoading || video?.items.length <= 0) {
+  if (videoWithChannel === null || isLoading || video?.items?.length <= 0 || video.items === undefined) {
     return <Text>Carregando</Text>
   }
 

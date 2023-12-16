@@ -12,8 +12,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 function RowVideoSubscription({ item }: { item: PlayListItem | undefined }) {
   const linkImage = item?.items[0].snippet.thumbnails?.high !== undefined ? item.items[0].snippet.thumbnails.high.url : "https://telhafer.com.br/image/no_image.jpg"
 
-
-
   return (
     <Pressable>
       <Image style={styles.logoVideo} source={{ uri: linkImage }} />
@@ -28,21 +26,20 @@ function RowVideoSubscription({ item }: { item: PlayListItem | undefined }) {
 
 export default function SubscriptionVideos() {
   const { params } = useRoute()
-  const { goBack } = useNavigation()
   const { dataPlayListSubscription, isLoadingDataSubscription, handleWithChannelSubscription } = useUserViewModel()
   const channel = params as ItensSubscription
 
   useEffect(() => {
-
     if (channel !== undefined) {
       handleWithChannelSubscription(channel.snippet.resourceId.channelId)
     }
-
   }, [channel])
+
 
   if (isLoadingDataSubscription && channel === undefined) {
     return <Text>IsLoading</Text>
   }
+
 
   return (
     <SafeAreaView style={styles.container} edges={['top']}>
@@ -55,17 +52,27 @@ export default function SubscriptionVideos() {
           <Text style={styles.textChannelTitle}>{channel.snippet.title}</Text>
         </View>
       </View>
-      <FlatList
-        style={{
-          marginBottom: 100
-        }}
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{
-          gap: 25,
-        }}
-        data={dataPlayListSubscription}
-        keyExtractor={(_, index) => `${index}`}
-        renderItem={RowVideoSubscription} />
+      {
+
+        dataPlayListSubscription.length === 0 ?
+          <View style={styles.containerEmptyPlayList} >
+            <Text style={styles.textEmpty}>Sem playlist</Text>
+          </View>
+
+          :
+          <FlatList
+            style={{
+              marginBottom: 100
+            }}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={{
+              gap: 25,
+            }}
+            data={dataPlayListSubscription}
+            keyExtractor={(_, index) => `${index}`}
+            renderItem={RowVideoSubscription} />
+      }
+
     </SafeAreaView  >
   )
 }
@@ -123,6 +130,17 @@ const styles = StyleSheet.create({
     fontFamily: theme.fonts.latoLight,
     fontSize: 15,
     lineHeight: 20,
+    color: theme.colors.black100
+  },
+  containerEmptyPlayList: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  textEmpty: {
+    fontFamily: theme.fonts.latoBlack,
+    fontSize: 25,
     color: theme.colors.black100
   }
 })

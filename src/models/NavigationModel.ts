@@ -9,7 +9,7 @@ export type NavigationModel = {
   signIn: undefined
   tabNavigator: undefined
   stackRoute: {
-    screen: string,
+    screen: "playVideo" | "subscriptionVideos",
     params: undefined | VideosWithChannelModel | ItensSubscription
   },
   playVideo: { videoWithChannel: VideosWithChannelModel }
