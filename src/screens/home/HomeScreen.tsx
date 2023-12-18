@@ -10,6 +10,7 @@ import useUserViewModel from "@/view_models/useUserViewModel";
 import useSearchVideoWithChannelViewModel from "@/view_models/useSearchVideoWithChannelViewModel";
 import { useNavigation } from "@react-navigation/native";
 import theme from "@/theme/theme";
+import { SkeletonHomeScreen } from "@/components/skeletoon/Skeletons";
 
 
 
@@ -20,21 +21,17 @@ export default function HomeScreen() {
   const { userStore } = useUserAuthenticationStore(useShallow(state => ({ userStore: state.user })))
   const { dataSubscription, isLoadingDataSubscription } = useUserViewModel()
 
-
   if (isLoadingSearchVideo || isLoadingDataSubscription) {
-    return <Text>Loading</Text>
+    return <SkeletonHomeScreen />
   }
 
 
   return (
-    <SafeAreaView edges={['top']} style={{
-      flex: 1,
-      paddingVertical: 10,
-      gap: 10,
-
-    }}>
+    <SafeAreaView edges={['top']} >
       <View style={styles.rowPresentation}>
-        <Image source={userStore.user.photo != null ? { uri: userStore.user.photo } : require("../../../assets/images/bottom_tab/avatar_user.png")} style={{ width: 60, height: 60, borderRadius: userStore.user.photo != null ? 30 : 0, }} />
+        <Image
+          style={[styles.imageAvatar, { borderRadius: userStore.user.photo != null ? 30 : 0 }]}
+          source={userStore.user.photo != null ? { uri: userStore.user.photo } : require("../../../assets/images/bottom_tab/avatar_user.png")} />
         <View>
           <View style={styles.rowWelcome}>
             <Text style={styles.presentationWelcome}>Bem vindo</Text>
@@ -70,7 +67,7 @@ export default function HomeScreen() {
           <RowVideos item={item} itensSubscription={dataSubscription.items} />
         </Pressable>}
       />
-    </SafeAreaView>
+    </SafeAreaView >
   )
 }
 
@@ -81,6 +78,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     paddingHorizontal: 13,
+  },
+  imageAvatar: {
+    width: 60, height: 60,
   },
   presentationWelcome: {
     fontFamily: theme.fonts.latoLight,

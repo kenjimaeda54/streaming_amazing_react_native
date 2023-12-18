@@ -1,4 +1,5 @@
 import BackButton from "@/components/back_button/BackButton";
+import { DataSubscriptionSkeleton } from "@/components/skeletoon/Skeletons";
 import { PlayListItem } from "@/models/PlayListItem";
 import { ItensSubscription } from "@/models/SubscriptionModel";
 import theme from "@/theme/theme";
@@ -13,13 +14,17 @@ function RowVideoSubscription({ item }: { item: PlayListItem | undefined }) {
   const linkImage = item?.items[0].snippet.thumbnails?.high !== undefined ? item.items[0].snippet.thumbnails.high.url : "https://telhafer.com.br/image/no_image.jpg"
 
   return (
-    <Pressable>
-      <Image style={styles.logoVideo} source={{ uri: linkImage }} />
-      <View style={styles.columnDescription}>
-        <Text style={styles.titleVideo} numberOfLines={2}>{item?.items[0].snippet.title}</Text>
-        <Text style={styles.textDescription} numberOfLines={2} >{item?.items[0].snippet.description}</Text>
-      </View>
-    </Pressable>
+    <>
+      {item?.items[0].snippet.thumbnails?.high !== undefined &&
+        <Pressable>
+          <Image style={styles.logoVideo} source={{ uri: linkImage }} />
+          <View style={styles.columnDescription}>
+            <Text style={styles.titleVideo} numberOfLines={2}>{item?.items[0].snippet.title}</Text>
+            <Text style={styles.textDescription} numberOfLines={2} >{item?.items[0].snippet.description}</Text>
+          </View>
+        </Pressable>
+      }
+    </>
   )
 
 }
@@ -37,7 +42,7 @@ export default function SubscriptionVideos() {
 
 
   if (isLoadingDataSubscription && channel === undefined) {
-    return <Text>IsLoading</Text>
+    return <DataSubscriptionSkeleton />
   }
 
 

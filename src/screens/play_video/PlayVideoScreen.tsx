@@ -9,6 +9,7 @@ import TimeAgo from "javascript-time-ago"
 import ptb from "javascript-time-ago/locale/pt-PT"
 import theme from "@/theme/theme"
 import BackButton from "@/components/back_button/BackButton"
+import { PlayVideoSkeleton } from "@/components/skeletoon/Skeletons"
 
 
 
@@ -31,7 +32,7 @@ export default function PlayVideo() {
 
 
   if (videoWithChannel === null || isLoading || video?.items?.length <= 0 || video.items === undefined) {
-    return <Text>Carregando</Text>
+    return <PlayVideoSkeleton />
   }
 
   function intervalDate(): string {
