@@ -2,7 +2,6 @@ import { NavigationModel } from "@/models/NavigationModel"
 import HomeScreen from "@/screens/home/HomeScreen"
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import TabBar from "./component/TabBar"
-import BookMark from "@/screens/channel_videos/SubscriptionVideosScreen"
 import Profile from "@/screens/profile/ProfileScreen"
 import Live from "@/screens/live/LiveScreen"
 import StackRoute from "./StackRoute"
@@ -11,12 +10,9 @@ import { useNavigationContext } from "@/stores/useNavigationProvider"
 
 export default function RoutesApp() {
   const { navigationRef } = useNavigationContext()
-
   const { Navigator, Screen } = createBottomTabNavigator<NavigationModel>()
 
 
-
-  //returna dois valores
   function isBottomTab(): boolean {
     const routeName = navigationRef.getCurrentRoute()?.name
     return (routeName === "home" || routeName === "live" || routeName === "profile");

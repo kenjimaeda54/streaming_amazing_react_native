@@ -1,11 +1,10 @@
 import { VideosWithChannelModel } from "@/models/VideosWithChannelModel";
-import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import { ItensSubscription, SnippetSubscription } from "@/models/SubscriptionModel";
+import { Image, StyleSheet, Text, View } from "react-native";
+import { ItensSubscription } from "@/models/SubscriptionModel";
 import theme from "@/theme/theme";
 
 
 export default function RowVideos({ item, itensSubscription }: { item: VideosWithChannelModel, itensSubscription: ItensSubscription[] }) {
-  const isRegistered = !!itensSubscription.find(it => it.snippet.resourceId.channelId === item.channelId)
   return (
     <View style={styles.container} >
       <Image style={styles.imageVideo} source={{ uri: item.thumbVideo }} />
@@ -14,13 +13,7 @@ export default function RowVideos({ item, itensSubscription }: { item: VideosWit
         <View style={styles.columnDescription}>
           <Text style={styles.title}  >{item.titleVideo}</Text>
         </View>
-        {!isRegistered &&
-          <Pressable style={styles.button}>
-            <Text style={styles.titleButton}>Assinar</Text>
-          </Pressable>
-        }
       </View>
-
     </View>
   )
 }
