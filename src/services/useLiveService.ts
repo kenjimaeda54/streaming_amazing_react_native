@@ -2,11 +2,9 @@ import { SearchVideoModel } from "@/models/SearchVideoModel";
 import { Constants } from "@/utility/Contants";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import api from "./api";
-import { ChannelModel } from "@/models/ChannelModel";
-import { useEffect, useRef, useState } from "react";
 import { VideosWithChannelModel } from "@/models/VideosWithChannelModel";
 import { fetchSearchChannel } from "./useChannelService";
-
+import { API_KEY } from "@env"
 
 interface IUseLiveServices {
   isLoading: boolean,
@@ -17,7 +15,7 @@ interface IUseLiveServices {
 }
 
 async function searchLives(signal: AbortSignal): Promise<SearchVideoModel> {
-  const response = await api.get(`/search?part=snippet&eventType=live&maxResults=10&regionCode=BR&relevanceLanguage=pt&type=video&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
+  const response = await api.get(`/search?part=snippet&eventType=live&maxResults=10&regionCode=BR&relevanceLanguage=pt&type=video&key=${API_KEY}`, {
     headers: {
       "Content-Type": "application/json",
     },

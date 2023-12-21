@@ -3,7 +3,7 @@ import { QueryObserverResult, useQuery } from "@tanstack/react-query";
 import { MutableRefObject, useRef } from "react";
 import api from "./api";
 import { VideoModel } from "@/models/VideoModel";
-
+import { API_KEY } from "@env"
 export interface IUseVideoService {
   isLoading: boolean,
   videoId: MutableRefObject<string>,
@@ -12,7 +12,7 @@ export interface IUseVideoService {
 
 
 async function getVideoById(videoId: string): Promise<VideoModel> {
-  const response = await api.get(`/videos?part=snippet&part=statistics&id=${videoId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`)
+  const response = await api.get(`/videos?part=snippet&part=statistics&id=${videoId}&key=${API_KEY}`)
   return response.data
 }
 

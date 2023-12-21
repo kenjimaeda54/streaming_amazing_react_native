@@ -4,6 +4,7 @@ import api from "./api";
 import { SubscriptionModel } from "@/models/SubscriptionModel";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { useShallow } from "zustand/react/shallow";
+import { API_KEY } from "@env"
 
 
 interface IUserSubscriptionService {
@@ -12,7 +13,7 @@ interface IUserSubscriptionService {
 }
 
 async function fetchSubscriptionUser(userToken: string, signal: AbortSignal): Promise<SubscriptionModel> {
-  const response = await api.get("/subscriptions?part=snippet&maxResults=10&mine=true&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw", {
+  const response = await api.get(`/subscriptions?part=snippet&maxResults=10&mine=true&key=${API_KEY}`, {
     headers: {
       Authorization: `Bearer ${userToken}`
     },

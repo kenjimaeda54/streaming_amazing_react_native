@@ -3,6 +3,7 @@ import api from "./api"
 import { MutableRefObject, useRef } from "react"
 import { QueryObserverResult, useQuery } from "@tanstack/react-query"
 import { Constants } from "@/utility/Contants"
+import { API_KEY } from "@env"
 
 
 interface IUseChannelService {
@@ -12,7 +13,7 @@ interface IUseChannelService {
 }
 
 export async function fetchSearchChannel(channelId: string): Promise<ChannelModel> {
-  const response = await api.get(`/channels?part=statistics&part=snippet&id=${channelId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
+  const response = await api.get(`/channels?part=statistics&part=snippet&id=${channelId}&key=${API_KEY}`, {
     headers: {
       "Content-Type": "application/json",
     },

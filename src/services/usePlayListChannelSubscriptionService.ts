@@ -4,6 +4,7 @@ import { PlayListItem } from "@/models/PlayListItem"
 import { MutableRefObject, useRef } from "react"
 import { useQueries, useQuery } from "@tanstack/react-query"
 import { Constants } from "@/utility/Contants"
+import { API_KEY } from "@env"
 
 
 interface IUsePlayListService {
@@ -14,12 +15,12 @@ interface IUsePlayListService {
 }
 
 async function fetchPlayListItem(playListId: String): Promise<PlayListItem> {
-  const response = await api.get(`/playlistItems?part=snippet&maxResults=1&playlistId=${playListId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`)
+  const response = await api.get(`/playlistItems?part=snippet&maxResults=1&playlistId=${playListId}&key=${API_KEY}`)
   return response.data
 }
 
 async function fetchPlayList(channelId: string, signal: AbortSignal): Promise<PlayListModel> {
-  const response = await api.get(`/playlists?part=id&maxResults=10&channelId=${channelId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, { signal })
+  const response = await api.get(`/playlists?part=id&maxResults=10&channelId=${channelId}&key=${API_KEY}`, { signal })
   return response.data
 }
 
