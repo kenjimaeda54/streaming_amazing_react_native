@@ -2,6 +2,7 @@ import BackButton from "@/components/back_button/BackButton";
 import { DataSubscriptionSkeleton } from "@/components/skeletoon/Skeletons";
 import { PlayListItem } from "@/models/PlayListItem";
 import { ItensSubscription } from "@/models/SubscriptionModel";
+import { VideosWithChannelModel } from "@/models/VideosWithChannelModel";
 import theme from "@/theme/theme";
 import useUserViewModel from "@/view_models/useUserViewModel";
 import { useNavigation, useRoute } from "@react-navigation/native";
@@ -16,13 +17,13 @@ function RowVideoSubscription({ item }: { item: PlayListItem | undefined }) {
   return (
     <>
       {item?.items[0].snippet.thumbnails?.high !== undefined &&
-        <Pressable>
+        <>
           <Image style={styles.logoVideo} source={{ uri: linkImage }} />
           <View style={styles.columnDescription}>
             <Text style={styles.titleVideo} numberOfLines={2}>{item?.items[0].snippet.title}</Text>
             <Text style={styles.textDescription} numberOfLines={2} >{item?.items[0].snippet.description}</Text>
           </View>
-        </Pressable>
+        </>
       }
     </>
   )
@@ -31,17 +32,19 @@ function RowVideoSubscription({ item }: { item: PlayListItem | undefined }) {
 
 export default function SubscriptionVideos() {
   const { params } = useRoute()
-  const { dataPlayListSubscription, isLoadingDataSubscription, handleWithChannelSubscription } = useUserViewModel()
-  const channel = params as ItensSubscription
+  const { navigate } = useNavigation()
+  const { dataPlayListSubscription, isLoadingDataSubscription, handleWithChannelSubscription, isLoadingChannel, handleSearchChannel, channel } = useUserViewModel()
+  const channelSubscription = params as ItensSubscription
 
   useEffect(() => {
     if (channel !== undefined) {
-      handleWithChannelSubscription(channel.snippet.resourceId.channelId)
+      handleWithChannelSubscription(channelSubscription.snippet.resourceId.channelId)
+      handleSearchChannel(channelSubscription.snippet.resourceId.channelId)
     }
   }, [channel])
 
 
-  if (isLoadingDataSubscription && channel === undefined) {
+  if (isLoadingDataSubscription && channel === undefined || isLoadingChannel || Object.entries(channel).length === 0) {
     return <DataSubscriptionSkeleton />
   }
 
@@ -53,8 +56,8 @@ export default function SubscriptionVideos() {
           <BackButton />
         </View>
         <View style={styles.rowPresentation}>
-          <Image source={{ uri: channel.snippet.thumbnails.medium.url }} style={styles.avatarChannel} />
-          <Text style={styles.textChannelTitle}>{channel.snippet.title}</Text>
+          <Image source={{ uri: channel.items[0].snippet.thumbnails.medium.url }} style={styles.avatarChannel} />
+          <Text style={styles.textChannelTitle}>{channel.items[0].snippet.title}</Text>
         </View>
       </View>
       {
@@ -75,10 +78,29 @@ export default function SubscriptionVideos() {
             }}
             data={dataPlayListSubscription}
             keyExtractor={(_, index) => `${index}`}
-            renderItem={RowVideoSubscription} />
+            renderItem={({ item }) => {
+              const params: VideosWithChannelModel = {
+                thumbVideo: item?.items[0].snippet.thumbnails.high.url ?? "",
+                thumbProfileChannel: channel.items[0].snippet.thumbnails.medium.url,
+                titleVideo: item?.items[0].snippet.title ?? "",
+                isSubscribed: false,
+                publishedVideo: item?.items[0].snippet.publishedAt ?? "",
+                id: item?.items[0].id ?? "",
+                videoId: item?.items[0].snippet.resourceId.videoId ?? "",
+                descriptionVideo: item?.items[0].snippet.description ?? "",
+                subscriberCountChannel: channel.items[0].statistics.subscriberCount,
+                channelId: channel.items[0].id
+              }
+              return (
+                <Pressable onPress={() => navigate("stackRoute", { screen: 'playVideo', params: params })}>
+                  <RowVideoSubscription item={item} />
+                </Pressable>
+
+              )
+            }} />
       }
 
-    </SafeAreaView  >
+    </SafeAreaView >
   )
 }
 

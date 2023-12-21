@@ -46,21 +46,19 @@ export default function PlayVideo() {
   }
 
   function formatQuantityView(value: string): String {
-    const quantity = value.length
+    let symbol = ["", "m", "mi", "b", "t", "p", "e"];
+    var tier = Math.log10(Math.abs(+value)) / 3 | 0;
 
-    if (quantity > 3 && quantity <= 6) {
-      return `${value.charAt(0)} mil`
-    }
+    if (tier == 0) return value;
 
-    if (quantity > 6 && quantity <= 9) {
-      return `${value.charAt(0)} m`
-    }
 
-    if (quantity > 9 && quantity <= 12) {
-      return `${value.charAt(0)} bi`
+    var suffix = symbol[tier];
+    var scale = Math.pow(10, tier * 3);
 
-    }
-    return value
+
+    var scaled = +value / scale;
+
+    return scaled.toFixed(1) + suffix;
   }
 
 
@@ -68,6 +66,7 @@ export default function PlayVideo() {
     <ScrollView bounces={false} showsVerticalScrollIndicator={false} >
       <YouTube
         videoId={videoWithChannel.videoId}
+        play
         apiKey="AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw"
         style={styles.youtubeControl}
         showinfo={false}

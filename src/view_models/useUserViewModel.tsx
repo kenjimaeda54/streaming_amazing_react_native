@@ -1,6 +1,8 @@
+import { ChannelModel } from "@/models/ChannelModel";
 import { PlayListItem } from "@/models/PlayListItem";
 import { SubscriptionModel } from "@/models/SubscriptionModel";
 import { UserAuthentication, UserModel } from "@/models/UserModel";
+import { useChannelService } from "@/services/useChannelService";
 import usePlayListChannelSubscriptionService from "@/services/usePlayListChannelSubscriptionService";
 import useSubscriptionService from "@/services/useSubscriptionService";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
@@ -19,6 +21,9 @@ interface IUseUserViewModel {
   handleWithChannelSubscription: (_channelId: string) => void,
   dataPlayListSubscription: (PlayListItem | undefined)[],
   isLoadingSubscription: boolean
+  isLoadingChannel: boolean,
+  channel: ChannelModel
+  handleSearchChannel: (channelId: string) => void
 }
 
 //configurar android
@@ -32,8 +37,10 @@ export default function useUserViewModel(): IUseUserViewModel {
     state => ({ update: state.updateUser, authentication: state.user })
   )
   const { data: dataSubscription, isLoading: isLoadingDataSubscription } = useSubscriptionService()
-  const { data: dataPlayListSubscription, isLoading: isLoadingSubscription, refetch, channelId } = usePlayListChannelSubscriptionService()
+  const { refetch: refetchChannel, isLoading: isLoadingChannel, channelId: channelIdService } = useChannelService()
+  const { data: dataPlayListSubscription, isLoading: isLoadingSubscription, refetch, channelId: channelIdSubscription } = usePlayListChannelSubscriptionService()
   const [isLoadingLogin, setIsLoadingLogin] = useState(true)
+  const [channel, setChannel] = useState({} as ChannelModel)
 
 
   useEffect(() => {
@@ -71,6 +78,16 @@ export default function useUserViewModel(): IUseUserViewModel {
       setIsLoadingLogin(false)
     }
 
+  }
+
+
+  function handleSearchChannel(channelId: string) {
+    channelIdService.current = channelId
+    refetchChannel().then(it => {
+      if (it.data != null) {
+        setChannel(it.data)
+      }
+    })
   }
 
 
@@ -115,7 +132,7 @@ export default function useUserViewModel(): IUseUserViewModel {
 
 
   function handleWithChannelSubscription(_channelId: string) {
-    channelId.current = _channelId
+    channelIdSubscription.current = _channelId
     refetch()
   }
 
@@ -128,7 +145,11 @@ export default function useUserViewModel(): IUseUserViewModel {
     handleSingOut,
     handleWithChannelSubscription,
     dataPlayListSubscription,
-    isLoadingSubscription
+    isLoadingSubscription,
+    handleSearchChannel,
+    channel,
+    isLoadingChannel,
+
   }
 
 }

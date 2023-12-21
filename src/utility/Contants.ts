@@ -8,4 +8,5 @@ export class Constants {
   static videos = "videosTankQuery"
   static playListVideosChannel = "playsVideosChannel"
   static playListItemVideoChannel = "playListItemVideosChannel"
+  static channelVideosSearch = "channelVideoSearch"
 }

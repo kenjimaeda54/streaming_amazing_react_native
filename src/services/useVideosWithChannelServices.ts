@@ -5,6 +5,7 @@ import api from "./api";
 import { ChannelModel } from "@/models/ChannelModel";
 import { useEffect, useRef, useState } from "react";
 import { VideosWithChannelModel } from "@/models/VideosWithChannelModel";
+import { fetchSearchChannel } from "./useChannelService";
 
 
 interface IUseSearchVideo {
@@ -26,15 +27,7 @@ async function searchVideo(signal: AbortSignal): Promise<SearchVideoModel> {
 }
 
 
-async function searchChannel(channelId: string): Promise<ChannelModel> {
-  const response = await api.get(`/channels?part=statistics&part=snippet&id=${channelId}&key=AIzaSyAVxRrP61Dw76EUidoiPpfavIdqN62_LBw`, {
-    headers: {
-      "Content-Type": "application/json",
-    },
 
-  })
-  return response.data as ChannelModel
-}
 
 export default function useVideosWithChannelService(): IUseSearchVideo {
 
@@ -62,7 +55,7 @@ export default function useVideosWithChannelService(): IUseSearchVideo {
     queries: ids.map(it => {
       return {
         queryKey: [Constants.channelVideos, `${it}`],
-        queryFn: () => searchChannel(it),
+        queryFn: () => fetchSearchChannel(it),
         enabled: successSearchVideo,
       }
     }),

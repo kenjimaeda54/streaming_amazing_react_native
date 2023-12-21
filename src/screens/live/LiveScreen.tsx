@@ -1,9 +1,12 @@
-import { Text, } from "react-native";
+import { Pressable, Text, } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { FlatList } from "react-native-gesture-handler";
 import RowVideos from "@/components/row_videos/RowVideos";
 import useUserViewModel from "@/view_models/useUserViewModel";
 import useSearchLivesWithChannelViewModel from "@/view_models/useSearchLivesWithChannelViewModel";
+import SkeletonPlaceholder from "react-native-skeleton-placeholder";
+import { LiveSkeleton } from "@/components/skeletoon/Skeletons";
+import { useNavigation } from "@react-navigation/native";
 
 
 
@@ -11,10 +14,11 @@ import useSearchLivesWithChannelViewModel from "@/view_models/useSearchLivesWith
 export default function LiveScreen() {
   const { isLoading, channelWithVideo } = useSearchLivesWithChannelViewModel()
   const { dataSubscription } = useUserViewModel()
+  const { navigate } = useNavigation()
 
 
   if (isLoading) {
-    return <Text>Loading</Text>
+    return <LiveSkeleton />
   }
 
   return (
@@ -32,7 +36,9 @@ export default function LiveScreen() {
           paddingHorizontal: 13
         }}
         keyExtractor={(it, index) => `${it.id}-${index}`}
-        renderItem={({ item }) => <RowVideos item={item} itensSubscription={dataSubscription.items} />}
+        renderItem={({ item }) => <Pressable onPress={() => navigate("stackRoute", { screen: 'playVideo', params: item })}>
+          <RowVideos item={item} itensSubscription={dataSubscription.items} />
+        </Pressable>}
       />
     </SafeAreaView>
   )

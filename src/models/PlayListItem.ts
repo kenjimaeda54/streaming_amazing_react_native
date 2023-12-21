@@ -7,13 +7,15 @@ export interface PlayListItem {
 
 interface ItensPlayList {
   snippet: SnippetPlayList
+  id: string
 }
 
 interface SnippetPlayList {
-  title: String
-  description: String
+  title: string
+  description: string,
+  publishedAt: string,
   thumbnails: ThumbnailsModel
-  channelTitle: String
+  channelTitle: string
   resourceId: {
     videoId: string
   }

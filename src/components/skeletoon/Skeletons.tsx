@@ -88,3 +88,20 @@ export const DataSubscriptionSkeleton = () => {
   )
 
 }
+
+export const LiveSkeleton = () => {
+
+  return (
+    <SkeletonPlaceholder borderRadius={4}>
+      <FlatList
+        data={[...Array(10).map(it => it)]}
+        renderItem={({ item }) => <SkeletonPlaceholder.Item>
+          <SkeletonPlaceholder.Item borderRadius={15} height={180} width="100%" />
+          <SkeletonPlaceholder.Item width={30} height={30} borderRadius={15} />
+          <TextSkeleton />
+        </SkeletonPlaceholder.Item>}
+      />
+    </SkeletonPlaceholder>
+  )
+
+}
