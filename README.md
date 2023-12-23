@@ -1,79 +1,88 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Streaming amazing
+Aplicativo de streaming de videos consumindo API do Youtube. Pode visulizar na home  os princiapis videos em alta, tambem visualizar os ao vivo e por fim o profile da pessoa logada.
+E possivel tambem visualizar um carrosel com  os respectivos canais que pessoa esta inscrita
 
-# Getting Started
+## Feature
+- React Query versao 5 introduziu combine
+- Para funcionar corretamnte o ideal e usar o proprio campo que deseja fazer o loop dentro do array da queryKey
+- Combine excelente quando precisar fazer um loop em um certo dado para pesquisar outro, por exemplo tenho uma lista de videos e quero consultar quem postou, esses videos era persquisado em outro endpoint pelo id
+- Reapra que retornei os ids dos canais e depois usei um loop para trazer os canais respecitivos
+- Neste caso ja qeu uma requisicao que dpenede da outra e interessante usar o enabled para garantir que ela estara disponivel apenas apos a outra dar sucesso
 
->**Note**: Make sure you have completed the [React Native - Environment Setup](https://reactnative.dev/docs/environment-setup) instructions till "Creating a new application" step, before proceeding.
+  ```typescript
 
-## Step 1: Start the Metro Server
+   const { data: dataSearchVideo = {
+    items: [],
+    kind: "",
+    etag: "",
+    nextPageToken: "",
+    regionCode: "",
+    pageInfo: {
+      totalResults: 0,
+      resultsPerPage: 0
+    }
+  } as SearchVideoModel, isSuccess: successSearchVideo } = useQuery({
+    queryKey: [Constants.searchVideos],
+    queryFn: ({ signal }) => searchVideo(signal),
+  })
 
-First, you will need to start **Metro**, the JavaScript _bundler_ that ships _with_ React Native.
 
-To start Metro, run the following command from the _root_ of your React Native project:
 
-```bash
-# using npm
-npm start
+  const ids = dataSearchVideo.items.map(it => it.snippet.channelId)
+  const combineQueries = useQueries({
+    queries: ids.map(it => {
+      return {
+        queryKey: [Constants.channelVideos, `${it}`],
+        queryFn: () => fetchSearchChannel(it),
+        enabled: successSearchVideo,
+      }
+    }),
+    combine(results) {
+      return ({
+        data: dataSearchVideo.items.map(video => {
+          const findChannel = results.find(it => it.data?.items[0].id === video.snippet.channelId)
 
-# OR using Yarn
-yarn start
-```
+          if (findChannel !== undefined) {
+            const { data } = findChannel
+            return {
+              id: data?.items[0].id,
+              thumbProfileChannel: data?.items[0].snippet.thumbnails.medium.url,
+              thumbVideo: video.snippet.thumbnails.high.url,
+              isSubscribed: false,
+              publishedVideo: video.snippet.publishedAt,
+              titleVideo: video.snippet.title,
+              descriptionVideo: video.snippet.description,
+              videoId: video.id.videoId,
+              subscriberCountChannel: data?.items[0].statistics.subscriberCount,
+              channelId: video.snippet.channelId
+            } as VideosWithChannelModel
 
-## Step 2: Start your Application
+          } else {
+            return {} as VideosWithChannelModel
+          }
 
-Let Metro Bundler run in its _own_ terminal. Open a _new_ terminal from the _root_ of your React Native project. Run the following command to start your _Android_ or _iOS_ app:
+        }),
+        isSuccess: results.some(it => it.isSuccess),
+        isLoading: results.some(it => it.isLoading)
+      })
+    },
+  })
 
-### For Android
 
-```bash
-# using npm
-npm run android
 
-# OR using Yarn
-yarn android
-```
+return {
+    channelWithVideo: combineQueries.data,
+    isLoading: combineQueries.isLoading,
+    isSuccess: combineQueries.isSuccess
+  }
 
-### For iOS
 
-```bash
-# using npm
-npm run ios
 
-# OR using Yarn
-yarn ios
-```
+  ```
 
-If everything is set up _correctly_, you should see your new app running in your _Android Emulator_ or _iOS Simulator_ shortly provided you have set up your emulator/simulator correctly.
 
-This is one way to run your app — you can also run it directly from within Android Studio and Xcode respectively.
+##
 
-## Step 3: Modifying your App
 
-Now that you have successfully run the app, let's modify it.
 
-1. Open `App.tsx` in your text editor of choice and edit some lines.
-2. For **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Developer Menu** (<kbd>Ctrl</kbd> + <kbd>M</kbd> (on Window and Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (on macOS)) to see your changes!
 
-   For **iOS**: Hit <kbd>Cmd ⌘</kbd> + <kbd>R</kbd> in your iOS Simulator to reload the app and see your changes!
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [Introduction to React Native](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you can't get this to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
