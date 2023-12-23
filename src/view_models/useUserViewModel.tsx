@@ -7,9 +7,8 @@ import usePlayListChannelSubscriptionService from "@/services/usePlayListChannel
 import useSubscriptionService from "@/services/useSubscriptionService";
 import { useUserAuthenticationStore } from "@/stores/userAuthenticationStore";
 import { GoogleSignin, statusCodes } from "@react-native-google-signin/google-signin";
-import { useNavigation } from "@react-navigation/native";
 import { useEffect, useState } from "react";
-
+import { WEB_CLIENT_ID, IOS_CLIENT_ID } from "@env"
 
 interface IUseUserViewModel {
   handleLogin: () => void,
@@ -47,8 +46,8 @@ export default function useUserViewModel(): IUseUserViewModel {
 
     GoogleSignin.configure({
       scopes: ['https://www.googleapis.com/auth/youtube.force-ssl', 'https://www.googleapis.com/auth/youtube.channel-memberships.creator', 'https://www.googleapis.com/auth/youtube'],
-      webClientId: "46079490013-en3bvel31eb51eif6oakeptareoo2k4q.apps.googleusercontent.com",
-      iosClientId: '46079490013-e190vc68lfc40ld4uhnsgeu814s77392.apps.googleusercontent.com',
+      webClientId: WEB_CLIENT_ID,
+      iosClientId: IOS_CLIENT_ID,
       offlineAccess: true,
       profileImageSize: 120,
     });
