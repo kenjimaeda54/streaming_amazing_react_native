@@ -9,7 +9,7 @@ Pode visualizar na home os principais vídeos em alta e os canais em que a pesso
 - Combine excelente quando precisar fazer um loop em um certo dado para pesquisar outro, por exemplo, tenho uma lista de vídeos e quero consultar quem postou, esses vídeos eram pesquisados em outro endpoint pelo id
 - Neste caso de uso  uma requisição depende da outra, é interessante usar o enabled para garantir que ela estará disponível apenas após a outra dar sucesso.
 
-  ```typescript
+```typescript
 
    const { data: dataSearchVideo = {
     items: [],
@@ -76,12 +76,11 @@ return {
     isSuccess: combineQueries.isSuccess
   }
 
-
-
 ```
 
 
 ##
+
 - Para realizar login social precisa definir os escopos, este [article](https://dev.to/suyashdev/google-authsignin-in-react-native-without-firebase-43n) pode auxiliar para configurar toda a etapa.
 - No Android precisamos gerar a chave webClientId.
 - No [IOS](https://chaim-zalmy-muskal.medium.com/hi-6d328bbd550f) e bem mais simples toda configuração.
